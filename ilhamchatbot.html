@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ilham Chatbot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2f5;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+    }
+    .chatbox {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 600px;
+      width: 100%;
+	}
+	
+	.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+	
+	}
+	 .logo {
+    width: 80px;
+    margin-right: 15px;
+	  
+    }
+    .messages {
+      border: 1px solid #ccc;
+      height: 350px;
+      overflow-y: auto;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+    .user, .bot {
+      margin: 8px 0;
+    }
+    .user {
+      text-align: right;
+      color: #2b7cff;
+    }
+    .bot {
+      text-align: left;
+      color: #10a04b;
+    }
+    input[type="text"] {
+      width: 75%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      width: 15%;
+      padding: 10px;
+      font-size: 16px;
+      margin-left: 0%;
+    }
+  </style>
+</head>
+<body>
+  <div class="chatbox">
+    <div class="header">
+      <img src="metamedia.png" alt="Universitas Metamedia" class="logo">
+	    <h2>Ilham Chatbot</h2>
+    </div>
+
+    <div id="messages" class="messages"></div>
+    <input type="text" id="userInput" placeholder="Ketik pertanyaan kamu di sini..." />
+    <button onclick="sendMessage()">Kirim</button>
+  </div>
+</body>
+
+
+  <script>
+    const responses = {
+      // Pertanyaan umum
+      "halo": "Halo juga! Ada yang bisa saya bantu?",
+      "hai": "Hai! Mau tanya tentang jaringan komputer atau yang lain?",
+      "apa kabar": "Saya bot, selalu siap membantu kamu!",
+      "terima kasih": "Sama-sama! Senang bisa membantu.",
+      "siapa kamu": "Saya adalah Ilham chatbot untuk membantu memahami jaringan komputer.",
+
+      // Materi jaringan komputer
+      "apa itu jaringan komputer": "Jaringan komputer adalah kumpulan komputer yang saling terhubung dan dapat berbagi data serta sumber daya.",
+      "apa itu ip address": "IP Address adalah alamat numerik unik untuk mengidentifikasi perangkat dalam jaringan.",
+      "fungsi router": "Router mengarahkan lalu lintas data antar jaringan dan menghubungkan LAN ke internet.",
+      "fungsi switch": "Switch menghubungkan perangkat dalam jaringan lokal dan meneruskan data hanya ke tujuan yang dituju.",
+      "apa itu subnetting": "Subnetting adalah teknik membagi jaringan menjadi beberapa sub-jaringan agar lebih efisien.",
+      "apa itu mikrotik": "Mikrotik adalah sistem operasi dan perangkat jaringan yang digunakan untuk mengelola jaringan.",
+      "apa itu dhcp": "DHCP adalah protokol yang memberikan IP address otomatis ke perangkat dalam jaringan.",
+      "apa itu dns": "DNS mengubah nama domain (seperti google.com) menjadi alamat IP yang dikenali jaringan.",
+      "perbedaan kabel straight dan cross": "Kabel straight digunakan untuk menghubungkan perangkat berbeda (PC ke switch), sedangkan kabel cross digunakan antar perangkat sejenis (PC ke PC)."
+    };
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const message = input.value.trim();
+      if (!message) return;
+
+      const chat = document.getElementById("messages");
+      chat.innerHTML += `<div class="user"><strong>Kamu:</strong> ${message}</div>`;
+
+      const reply = responses[message.toLowerCase()] || "Maaf, saya belum mengerti pertanyaan itu. Coba tanya hal lain seputar jaringan komputer.";
+
+      setTimeout(() => {
+        chat.innerHTML += `<div class="bot"><strong>Bot:</strong> ${reply}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+      }, 500);
+
+      input.value = "";
+    }
+
+    document.getElementById("userInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+
+</body>
+</html>
